@@ -1,11 +1,11 @@
 /* eslint-disable consistent-return */
 // Массив доменов, с которых разрешены кросс-доменные запросы
 const allowedCors = [
-  'https://api.mesto.mogwuy.nomoredomains.rocks',
-  'http://api.mesto.mogwuy.nomoredomains.rocks',
-  'https://mesto.mogwuy.nomoredomains.rocks',
-  'http://mesto.mogwuy.nomoredomains.rocks',
-  'http://localhost:3001',
+  'https://api.mogwuy-diplom.nomoredomains.rocks',
+  'http://api.mogwuy-diplom.nomoredomains.rocks',
+  'https://mogwuy-diplom.nomoredomains.rocks',
+  'http://mogwuy-diplom.nomoredomains.rocks',
+  'http://localhost:3005',
 ];
 
 function cors(req, res, next) {

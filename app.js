@@ -12,7 +12,7 @@ const errorValidator = require('./api/errorValidator');
 const NotFoundError = require('./errors/not-found-error');
 
 const app = express();
-const { PORT = 3000 } = process.env;
+const { PORT = 3005 } = process.env;
 
 app.use(require('body-parser').json());
 app.use(require('body-parser').urlencoded({ extended: true }));
