@@ -1,18 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const { celebrate, Joi, errors } = require('celebrate');
+const { errors } = require('celebrate');
+const helmet = require('helmet');
 const auth = require('./middlewares/auth');
-const {
-  login, createUser,
-} = require('./controllers/users');
 const { cors } = require('./middlewares/cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorValidator = require('./api/errorValidator');
 const NotFoundError = require('./errors/not-found-error');
 
 const app = express();
-const { PORT = 3005 } = process.env;
+const { PORT = 3005, NODE_ENV, MONGODB } = process.env;
 
 app.use(require('body-parser').json());
 app.use(require('body-parser').urlencoded({ extended: true }));
@@ -20,7 +18,7 @@ app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // подключаемся к серверу mongo
-mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
+mongoose.connect(NODE_ENV === 'production' ? MONGODB : 'mongodb://localhost:27017/moviesdb', {
   useNewUrlParser: true,
 }, (err) => {
   if (err) {
@@ -33,29 +31,14 @@ mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
 app.use(requestLogger); // подключаем логгер запросов
 
 app.use(cors);
+app.use(helmet());
 
-app.post(
-  '/signin',
-  celebrate({
-    body: Joi.object().keys({
-      email: Joi.string().required().email(),
-      password: Joi.string().required().min(8),
-    }),
-  }),
-  login,
-);
-app.post('/signup', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required().min(8),
-    name: Joi.string().min(2).max(30),
-  }),
-}), createUser);
+app.use(require('./routes/auth'));
 
 app.use(auth);
 
-app.use('/movies', require('./routes/movies'));
-app.use('/users', require('./routes/users'));
+app.use(require('./routes/movies'));
+app.use(require('./routes/users'));
 
 app.use((req, res, next) => {
   next(new NotFoundError('Маршрут не найден'));

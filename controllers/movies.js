@@ -13,11 +13,12 @@ module.exports.getMovies = (req, res, next) => {
 
 module.exports.createMovie = (req, res, next) => {
   const {
-    country, director, duration, year, description, image, trailer, thumbnail, nameRU, nameEN,
+    // eslint-disable-next-line max-len
+    country, director, duration, year, description, image, trailer, thumbnail, nameRU, nameEN, moveId,
   } = req.body;
   Movie.create({
     // eslint-disable-next-line max-len
-    country, director, duration, year, description, image, trailer, thumbnail, nameRU, nameEN, owner: req.user._id,
+    country, director, duration, year, description, image, trailer, thumbnail, nameRU, nameEN, moveId, owner: req.user._id,
   })
     .then((data) => {
       Movie.findById(data._id)
@@ -41,8 +42,7 @@ module.exports.deleteMovie = (req, res, next) => {
       const ownerId = data.owner;
       const owner = ownerId.toString();
       if (req.user._id === owner) {
-        Movie.findByIdAndRemove(req.params.id)
-          .orFail(() => { throw new NotFoundError('Запрашиваемые данные не найдены'); })
+        data.remove()
           .then(() => {
             res.send({ message: 'Успешно удалено' });
           })

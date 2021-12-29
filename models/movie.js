@@ -18,14 +18,10 @@ const movieSchema = new mongoose.Schema({
   duration: {
     type: Number,
     required: true,
-    minlength: 2,
-    maxlength: 4,
   },
   year: {
-    type: String,
+    type: Number,
     required: true,
-    minlength: 2,
-    maxlength: 4,
   },
   description: {
     type: String,
@@ -73,6 +69,10 @@ const movieSchema = new mongoose.Schema({
     required: true,
     minlength: 2,
     maxlength: 120,
+  },
+  moveId: {
+    type: Number,
+    required: true,
   },
 });
 // Модель Карточки

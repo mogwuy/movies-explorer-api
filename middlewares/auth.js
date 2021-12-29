@@ -5,7 +5,7 @@ const InvalidAutorization = require('../errors/invalid-autorization');
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const handleAuthError = () => {
-  throw new InvalidAutorization('Неудачная попытка входа');
+  throw new InvalidAutorization('Необходима авторизация');
 };
 
 // eslint-disable-next-line consistent-return
