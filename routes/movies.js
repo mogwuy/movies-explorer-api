@@ -12,7 +12,7 @@ moviesRouter.post('/movies', celebrate({
     director: Joi.string().required().min(2).max(60),
     duration: Joi.number().required(),
     year: Joi.number().required(),
-    description: Joi.string().required().min(2).max(240),
+    description: Joi.string().required().min(2).max(2240),
     image: Joi.string().required().custom((value, helpers) => {
       if (validator.isURL(value)) {
         return value;
