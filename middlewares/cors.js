@@ -5,6 +5,10 @@ const allowedCors = [
   'http://api.mogwuy-diplom.nomoredomains.rocks',
   'https://mogwuy-diplom.nomoredomains.rocks',
   'http://mogwuy-diplom.nomoredomains.rocks',
+  'http://mogwuy-diplom.nomoredomains.rocks/movies',
+  'https://mogwuy-diplom.nomoredomains.rocks/movies',
+  'https://mogwuy-diplom.nomoredomains.rocks/saved-movies',
+  'http://mogwuy-diplom.nomoredomains.rocks/saved-movies',
   'http://localhost:3005',
 ];
 
