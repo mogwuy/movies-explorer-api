@@ -5,7 +5,7 @@ const allowedCors = [
   'http://api.mogwuy-diplom.nomoredomains.rocks',
   'https://mogwuy-diplom.nomoredomains.rocks',
   'http://mogwuy-diplom.nomoredomains.rocks',
-  'http://localhost:3000',
+  'http://localhost:3005',
 ];
 
 function cors(req, res, next) {
