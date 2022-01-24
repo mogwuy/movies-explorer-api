@@ -24,7 +24,7 @@ moviesRouter.post('/movies', celebrate({
         return value;
       }
       return helpers.message('Поле trailer заполнено некорректно');
-    }),
+    }).allow(null),
     thumbnail: Joi.string().required().custom((value, helpers) => {
       if (validator.isURL(value)) {
         return value;
@@ -32,7 +32,8 @@ moviesRouter.post('/movies', celebrate({
       return helpers.message('Поле thumbnail: заполнено некорректно');
     }),
     nameRU: Joi.string().required().min(2).max(120),
-    nameEN: Joi.string().required().min(2).max(120),
+    nameEN: Joi.string().required().min(2).max(120)
+      .allow(null, ' '),
     moveId: Joi.number().required(),
   }),
 }), createMovie);
